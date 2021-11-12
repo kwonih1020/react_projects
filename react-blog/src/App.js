@@ -4,32 +4,57 @@ import "./App.css";
 
 function App() {
   let [blogName, blogNameChange] = useState([
-    "Popular Menu",
-    " from Sisters Thai",
-  ]); // 이렇게 쓰면 array가 남고, [a,b]
-  // blogName 는 -> Popular Menu ,  blogNameChange 는 -> Popular Menu state 정정해주는 함수
-  // es6 destructing 문법, array, object 에 있던 자료를 변수에 쉽게 담고 싶을 때
+    "Sisters Thai",
+    "Pho Sate",
+    "Subway",
+  ]);
+  let [liked, likedChange] = useState(0);
 
-  // let posts = "Virginia Resturants";
+  function nameChange() {
+    var newArray = [...blogName]; // deep copy 필요, 서로 독집적인 값늘 저장하는 방식 reference data type
+    newArray[1] = "Pho So 1";
+    blogNameChange(newArray);
+  }
 
-  // let cssStyle = { color: "blue", fontSize: "30px" };
+  function sortName() {
+    var newSort = [...blogName];
+    var sortChange = newSort.sort();
+    blogNameChange(sortChange);
+  }
 
-  // function random() {
-  //   return 100;
-  // }'=
+  let posts = "Famous Resturant Blog";
 
   return (
     <div className="App">
       <div className="black-nav">
-        <div>Blog</div>
-        {/* <div style={cssStyle}>Blog</div> */}
+        <div>Resturant Blog</div>
+        <button onClick={sortName}>sort</button>
       </div>
       <div className="list">
-        <h3>{blogName[0]}</h3>
+        <h3>
+          {blogName[0]}
+          <span
+            onClick={() => {
+              likedChange(liked + 1);
+            }}>
+            👍
+          </span>
+          {liked}
+        </h3>
         <p>Date: Feb. 17th</p>
         <hr />
       </div>
-      {/* <img src={logo} /> */}
+      <div className="list">
+        <h3>{blogName[1]}</h3>
+        <p>Date: Feb. 18th</p>
+        <button onClick={nameChange}>change</button>
+        <hr />
+      </div>
+      <div className="list">
+        <h3>{blogName[2]}</h3>
+        <p>Date: Feb. 19th</p>
+        <hr />
+      </div>
     </div>
   );
 }
