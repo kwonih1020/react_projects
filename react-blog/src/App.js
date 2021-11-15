@@ -79,15 +79,17 @@ function App() {
         }}>
         Open
       </button>
-      {modal === true ? <Modal></Modal> : null}
+      {modal === true ? <Modal blogName={blogName}></Modal> : null}
+      {/* <자식컴포넌트 작명={state명} /> */}
+      {/* 자식컴포넌크에서 props파라미터 사용 */}
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
     <div className="modal">
-      <h2>Title</h2>
+      <h2> {props.blogName[0]} </h2>
       <p>Date</p>
       <p>Details</p>
     </div>
