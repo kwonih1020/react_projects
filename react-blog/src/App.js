@@ -8,12 +8,15 @@ function App() {
     "Pho Sate",
     "Subway",
   ]);
+
   let [liked, likedChange] = useState([0, 0, 0]);
 
   let [modal, modalChange] = useState(false);
   // 모달찰을 켜고 닫는 스위치
 
   let [openModal, openModalChange] = useState(0);
+
+  let [inputs, inputsChange] = useState("");
 
   function nameChange() {
     var newArray = [...blogName]; // deep copy 필요, 서로 독집적인 값늘 저장하는 방식 reference data type
@@ -67,7 +70,22 @@ function App() {
         );
       })}
 
-      <input></input>
+      <div className="publish">
+        <input
+          onChange={(e) => {
+            inputsChange(e.target.value);
+          }}></input>
+        <button
+          onClick={() => {
+            var blogNameCopy = [...blogName];
+            blogNameCopy.unshift(inputs);
+            blogNameChange(blogNameCopy);
+          }}>
+          Save
+        </button>
+        {/* - 사용자가 입력한 글 state으로 저장하기
+        - 버튼 누르면 입력한 글 state를 글제목 state에 추가 */}
+      </div>
 
       <button
         onClick={() => {
