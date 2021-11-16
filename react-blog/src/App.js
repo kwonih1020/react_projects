@@ -13,16 +13,7 @@ function App() {
   let [modal, modalChange] = useState(false);
   // 모달찰을 켜고 닫는 스위치
 
-  // function 반복된UI() {
-  //   var 어레이 = [];
-  //   for (var i = 0; i < 3; i++) {
-  //     어레이.push(<div>안녕</div>);
-  //   }
-  //   return 어레이
-  // }
-  // 반복된UI();
-  // for 반복문을 쓰고 싶다면?
-  // 보통 함수안에서 사용함 / array에 HTML 추가하는 방식 / 그리고 array를 return으로 뱉어냄
+  let [openModal, openModalChange] = useState(0);
 
   function nameChange() {
     var newArray = [...blogName]; // deep copy 필요, 서로 독집적인 값늘 저장하는 방식 reference data type
@@ -57,7 +48,10 @@ function App() {
       {blogName.map(function (a, i) {
         return (
           <div className="list" key={i}>
-            <h3>
+            <h3
+              onClick={() => {
+                openModalChange(i);
+              }}>
               {a}
               <span
                 onClick={() => {
@@ -73,13 +67,17 @@ function App() {
         );
       })}
 
+      <input></input>
+
       <button
         onClick={() => {
           modalChange(!modal);
         }}>
-        Open
+        Open&Close
       </button>
-      {modal === true ? <Modal blogName={blogName}></Modal> : null}
+      {modal === true ? (
+        <Modal blogName={blogName} openModal={openModal}></Modal>
+      ) : null}
       {/* <자식컴포넌트 작명={state명} /> */}
       {/* 자식컴포넌크에서 props파라미터 사용 */}
     </div>
@@ -89,7 +87,7 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal">
-      <h2> {props.blogName[0]} </h2>
+      <h2> {props.blogName[props.openModal]} </h2>
       <p>Date</p>
       <p>Details</p>
     </div>
