@@ -87,6 +87,8 @@ function App() {
         - 버튼 누르면 입력한 글 state를 글제목 state에 추가 */}
       </div>
 
+      {/* <Profile></Profile> */}
+
       <button
         onClick={() => {
           modalChange(!modal);
@@ -101,6 +103,29 @@ function App() {
     </div>
   );
 }
+
+// Old React Components way
+// class Profile extends React.Component {
+//   constructor() {
+//     super(); //
+//     this.state = { name: "Kim" };
+//     // state 은 constructor에 저장
+//   }
+
+//   changeName = () => {
+//     this.setState({ name: "Park" });
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         <h3>프로필</h3>
+//         <p>저는 {this.state.name} 입니다</p>
+//         <button onClick={this.changeName}>버튼</button>
+//       </div>
+//     );
+//   }
+// }
 
 function Modal(props) {
   return (
