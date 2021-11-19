@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-
 import logo from "./logo.svg";
 import "./App.css";
+import Data from "./data.js";
 
 function App() {
+  let [shoes, shoesChange] = useState(Data);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -32,9 +34,9 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div class="jumbotron m-3">
-        <h1 class="display-4">Hello, world!</h1>
-        <p class="lead">
+      <div className="jumbotron m-3 background">
+        <h1 className="display-4">20% Season Off</h1>
+        <p className="lead">
           This is a simple hero unit, a simple jumbotron-style component for
           calling extra attention to featured content or information.
         </p>
@@ -43,10 +45,33 @@ function App() {
           It uses utility classes for typography and spacing to space content
           out within the larger container.
         </p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">
+        <a className="btn btn-primary btn-lg" href="#" role="button">
           Learn more
         </a>
       </div>
+      <div className="container">
+        <div className="row">
+          {shoes.map((a, i) => {
+            return <Shoescard shoes={shoes[i]} i={i}></Shoescard>;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Shoescard(props) {
+  return (
+    <div className="col-md-4">
+      <img
+        className="shoesimage"
+        src={
+          "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"
+        }></img>
+      <h4>{props.shoes.title}</h4>
+      <p>
+        {props.shoes.content} & ${props.shoes.price}
+      </p>
     </div>
   );
 }
