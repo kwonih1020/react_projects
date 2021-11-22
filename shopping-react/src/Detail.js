@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import "./Detail.css";
 
 // css을 입혀놓은 components
 let Box = styled.div`
@@ -23,8 +24,13 @@ function Detail(props) {
   return (
     <div className="container">
       <Box>
-        <Title colors="red">Title</Title>
+        {/* <Title colors="red">Title
+        </Title> */}
+        <Title className="red">Title</Title>
       </Box>
+      <div className="my-alert">
+        <p>Out of stock soon!</p>
+      </div>
       <div className="row">
         <div className="col-md-6">
           <img
