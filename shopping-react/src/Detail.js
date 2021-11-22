@@ -1,13 +1,30 @@
 /* eslint-disable */
 import React, { useState } from "react";
-import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import "./App.css";
+import { useHistory, useParams } from "react-router-dom";
+import styled from "styled-components";
 
-function Detail() {
+// css을 입혀놓은 components
+let Box = styled.div`
+  padding: 20px;
+`;
+
+let Title = styled.h4`
+  font-size: 25px;
+  color: ${(props) => props.colors};
+`;
+
+function Detail(props) {
+  let { id } = useParams();
+  let products = props.shoes.find(function (product) {
+    return product.id == id;
+  });
   let history = useHistory();
+
   return (
     <div className="container">
+      <Box>
+        <Title colors="red">Title</Title>
+      </Box>
       <div className="row">
         <div className="col-md-6">
           <img
@@ -16,10 +33,11 @@ function Detail() {
           />
         </div>
         <div className="col-md-6 mt-4">
-          <h4 className="pt-5">Detail</h4>
-          <p>Product Detail</p>
-          <p>$120000</p>
+          <h4 className="pt-5">{products.title}</h4>
+          <p>{products.content}</p>
+          <p>${products.price}</p>
           <button className="btn btn-danger">Order</button>
+          &nbsp;
           <button
             className="btn btn-danger"
             onClick={() => {
