@@ -5,6 +5,7 @@ import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./App.css";
 import Data from "./data.js";
 import Detail from "./Detail";
+import axios from "axios";
 
 import { Link, Route, Switch } from "react-router-dom";
 
@@ -62,9 +63,25 @@ function App() {
           <div className="container">
             <div className="row">
               {shoes.map((a, i) => {
-                return <Shoescard shoes={shoes[i]} i={i}></Shoescard>;
+                return <Shoescard shoes={shoes[i]} i={i} key={i}></Shoescard>;
               })}
             </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                // fetch()는 호환성이 안좋음
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((result) => {
+                    shoesChange([...shoes, ...result.data]); // copy of shoes and result.data
+                  }) // get 요청이 성공 했을때
+                  .catch(() => {
+                    console.log("Failed");
+                  }); // 요청이 실패 했을때
+                // 새로고칩 없이도 get요청이 가능함
+              }}>
+              See More
+            </button>
           </div>
         </Route>
         <Route path="/detail/:id">
