@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.css";
@@ -14,7 +14,37 @@ let Title = styled.h4`
   color: ${(props) => props.colors};
 `;
 
+// components life cycle
+// class Detail2 extends React.Component {
+//   componentDidMount() {
+//     // when components mount
+//   }
+
+//   componentWillUnmount() {
+//     // when components ends
+//   }
+// }
+
 function Detail(props) {
+  let [alert, alertChange] = useState(true);
+  let [inputData, inputDataChange] = useState("");
+
+  useEffect(() => {
+    // component가 mount ot update될때...실행되는...
+    let timer = setTimeout(() => {
+      alertChange(false);
+    }, 2000);
+
+    return function unMount() {
+      //  컴포넌트가 사라질때 코드를 실행시킬 수도 있음
+      clearTimeout(timer);
+      // detail component가 사라질때 타이머 해제 스킬
+    };
+  }, [alert]); //  alert가 실행 될때만 useEffect가 실해되게 하는 조건식 [] 대괄호 안에 넣어야함, 그 뒤에 계속 넣을수 있음.
+  // 빈칸일때는, detail 페이지가 처음 들어올때만 실행되는 트릭.
+
+  // useEffect 는 여러개라도 상관없음.
+
   let { id } = useParams();
   let products = props.shoes.find(function (product) {
     return product.id == id;
@@ -28,9 +58,18 @@ function Detail(props) {
         </Title> */}
         <Title className="red">Title</Title>
       </Box>
-      <div className="my-alert">
-        <p>Out of stock soon!</p>
-      </div>
+
+      {alert === true ? (
+        <div className="my-alert">
+          <p>Out of stock soon!</p>
+        </div>
+      ) : null}
+
+      <input
+        onChange={(e) => {
+          inputDataChange(e.target.value);
+        }}></input>
+
       <div className="row">
         <div className="col-md-6">
           <img
