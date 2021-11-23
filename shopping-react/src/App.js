@@ -11,6 +11,7 @@ import { Link, Route, Switch } from "react-router-dom";
 
 function App() {
   let [shoes, shoesChange] = useState(Data);
+  let [stocks, stocksChange] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -70,6 +71,9 @@ function App() {
               className="btn btn-primary"
               onClick={() => {
                 // fetch()는 호환성이 안좋음
+
+                // axios.post('serverURL', {id : 'myID', PW : 1234}).then();
+
                 axios
                   .get("https://codingapple1.github.io/shop/data2.json")
                   .then((result) => {
@@ -85,7 +89,7 @@ function App() {
           </div>
         </Route>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} />
+          <Detail shoes={shoes} stocks={stocks} stocksChange={stocksChange} />
         </Route>
 
         <Route path="/:id">

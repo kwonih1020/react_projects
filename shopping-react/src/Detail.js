@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.css";
-import axios from "axios";
 
 // css을 입혀놓은 components
 let Box = styled.div`
@@ -86,7 +85,14 @@ function Detail(props) {
           <h4 className="pt-5">{products.title}</h4>
           <p>{products.content}</p>
           <p>${products.price}</p>
-          <button className="btn btn-danger">Order</button>
+          <Stockinfo stocks={props.stocks}></Stockinfo>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              props.stocksChange([9, 11, 12]);
+            }}>
+            Order
+          </button>
           &nbsp;
           <button
             className="btn btn-danger"
@@ -100,6 +106,10 @@ function Detail(props) {
       </div>
     </div>
   );
+}
+
+function Stockinfo(props) {
+  return <p>Stocks : {props.stocks[0]}</p>;
 }
 
 export default Detail;
