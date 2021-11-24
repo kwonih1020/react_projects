@@ -6,6 +6,7 @@ import "./App.css";
 import Data from "./data.js";
 import Detail from "./Detail";
 import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Link, Route, Switch } from "react-router-dom";
 
@@ -67,6 +68,7 @@ function App() {
                 return <Shoescard shoes={shoes[i]} i={i} key={i}></Shoescard>;
               })}
             </div>
+
             <button
               className="btn btn-primary"
               onClick={() => {
@@ -102,6 +104,7 @@ function App() {
 }
 
 function Shoescard(props) {
+  let history = useHistory();
   return (
     <div className="col-md-4">
       <img
@@ -113,6 +116,15 @@ function Shoescard(props) {
       <p>
         {props.shoes.content} & ${props.shoes.price}
       </p>
+      <button
+        type="button"
+        className="btn btn-info"
+        onClick={() => {
+          history.push("/detail/" + props.i);
+        }}>
+        More
+      </button>
+      &nbsp;
     </div>
   );
 }
