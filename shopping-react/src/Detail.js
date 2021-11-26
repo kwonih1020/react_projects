@@ -1,8 +1,9 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.css";
+import { stockscontext } from "./App";
 
 // css을 입혀놓은 components
 let Box = styled.div`
@@ -28,6 +29,7 @@ let Title = styled.h4`
 function Detail(props) {
   let [alert, alertChange] = useState(true);
   let [inputData, inputDataChange] = useState("");
+  let stocks = useContext(stockscontext);
 
   // useEffect(()=>{
   //   axios.get();

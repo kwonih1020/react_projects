@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 // import logo from "./logo.svg";
 import "./App.css";
@@ -7,8 +7,9 @@ import Data from "./data.js";
 import Detail from "./Detail";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
-
 import { Link, Route, Switch } from "react-router-dom";
+
+export let stockscontext = React.createContext(); // 1. 범위설정
 
 function App() {
   let [shoes, shoesChange] = useState(Data);
@@ -63,11 +64,14 @@ function App() {
             </a>
           </div>
           <div className="container">
-            <div className="row">
-              {shoes.map((a, i) => {
-                return <Shoescard shoes={shoes[i]} i={i} key={i}></Shoescard>;
-              })}
-            </div>
+            <stockscontext.Provider value={stocks}>
+              {/* 2. <범위.Provider>로 감싸고 value={공유원하는 값} */}
+              <div className="row">
+                {shoes.map((a, i) => {
+                  return <Shoescard shoes={shoes[i]} i={i} key={i}></Shoescard>;
+                })}
+              </div>
+            </stockscontext.Provider>
 
             <button
               className="btn btn-primary"
@@ -91,7 +95,9 @@ function App() {
           </div>
         </Route>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} stocks={stocks} stocksChange={stocksChange} />
+          <stockscontext.Provider value={stocks}>
+            <Detail shoes={shoes} stocks={stocks} stocksChange={stocksChange} />
+          </stockscontext.Provider>
         </Route>
 
         <Route path="/:id">
@@ -104,6 +110,7 @@ function App() {
 }
 
 function Shoescard(props) {
+  let stocks = useContext(stockscontext); // 3. 선언
   let history = useHistory();
   return (
     <div className="col-md-4">
@@ -116,6 +123,7 @@ function Shoescard(props) {
       <p>
         {props.shoes.content} & ${props.shoes.price}
       </p>
+      <p>Stocks: {stocks[props.i]}</p>
       <button
         type="button"
         className="btn btn-info"
@@ -124,9 +132,13 @@ function Shoescard(props) {
         }}>
         More
       </button>
-      &nbsp;
+      {/* <Test></Test> */}
     </div>
   );
 }
+// function Test() {
+//   let stocks = useContext(stockscontext);
+//   return <p>재고 : {stocks[0]}</p>;
+// }
 
 export default App;
