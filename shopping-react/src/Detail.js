@@ -1,9 +1,12 @@
 /* eslint-disable */
 import React, { useContext, useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.css";
 import { stockscontext } from "./App";
+
+import { CSSTransition } from "react-transition-group";
 
 // css을 입혀놓은 components
 let Box = styled.div`
@@ -30,6 +33,8 @@ function Detail(props) {
   let [alert, alertChange] = useState(true);
   let [inputData, inputDataChange] = useState("");
   let stocks = useContext(stockscontext);
+  let [tabs, tabsChange] = useState(0);
+  let [switchs, switchsChange] = useState(false);
 
   // useEffect(()=>{
   //   axios.get();
@@ -106,8 +111,57 @@ function Detail(props) {
           </button>
         </div>
       </div>
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-0"
+            onClick={() => {
+              tabsChange(0);
+              switchsChange(false);
+            }}>
+            Active
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-1"
+            onClick={() => {
+              tabsChange(1);
+              switchsChange(false);
+            }}>
+            Option 2
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="link-3"
+            onClick={() => {
+              tabsChange(2);
+              switchsChange(false);
+            }}>
+            Option 3
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <CSSTransition in={switchs} classNames="wow" timeout={500}>
+        <TabContent tabs={tabs} switchsChange={switchsChange}></TabContent>
+      </CSSTransition>
     </div>
   );
+}
+
+function TabContent(props) {
+  useEffect(() => {
+    props.switchsChange(true);
+  });
+  if (props.tabs === 0) {
+    return <div>0</div>;
+  } else if (props.tabs === 1) {
+    return <div>1</div>;
+  } else if (props.tabs === 2) {
+    return <div>2</div>;
+  }
 }
 
 function Stockinfo(props) {

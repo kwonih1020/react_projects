@@ -13,7 +13,7 @@ export let stockscontext = React.createContext(); // 1. 범위설정
 
 function App() {
   let [shoes, shoesChange] = useState(Data);
-  let [stocks, stocksChange] = useState([10, 11, 12]);
+  let [stocks, stocksChange] = useState([10, 11, 12, 13, 14, 18]);
 
   return (
     <div className="App">
