@@ -5,6 +5,7 @@ import { Button, Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./App.css";
 import Data from "./data.js";
 import Detail from "./Detail";
+import Cart from "./Cart";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import { Link, Route, Switch } from "react-router-dom";
@@ -28,6 +29,9 @@ function App() {
               </Nav.Link>
               <Nav.Link as={Link} to="/detail/0">
                 Detail
+              </Nav.Link>
+              <Nav.Link as={Link} to="/cart">
+                Cart
               </Nav.Link>
               {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -94,10 +98,15 @@ function App() {
             </button>
           </div>
         </Route>
+
         <Route path="/detail/:id">
           <stockscontext.Provider value={stocks}>
             <Detail shoes={shoes} stocks={stocks} stocksChange={stocksChange} />
           </stockscontext.Provider>
+        </Route>
+
+        <Route path="/cart">
+          <Cart></Cart>
         </Route>
 
         <Route path="/:id">
