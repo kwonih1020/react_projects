@@ -6,14 +6,37 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
-let store = createStore(() => {
-  return [
-    { id: 0, name: "Nike Airforce", quan: 2 },
-    { id: 1, name: "Adidas Cloud", quan: 1 },
-  ];
-});
+let alertState = true;
+
+function reducer2(state = alertState, action) {
+  if (action.type === "close") {
+    return (state = false);
+    return state;
+  } else {
+    return state;
+  }
+}
+
+let initialState = [
+  { id: 0, name: "Nike Airforce", quan: 2 },
+  { id: 1, name: "Adidas Cloud", quan: 1 },
+];
+function reducer(state = initialState, action) {
+  if (action.type === "addOrder") {
+    let copyState = [...state];
+    copyState[0].quan++;
+    return copyState;
+  } else if (action.type === "deleteOrder") {
+    let copyState = [...state];
+    copyState[0].quan--;
+    return copyState;
+  } else {
+    return state;
+  }
+}
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>

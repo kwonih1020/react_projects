@@ -12,7 +12,7 @@ function Cart(props) {
               <th>#</th>
               <th>Product Name</th>
               <th>Amount</th>
-              <th>Change</th>
+              <th>Order#</th>
             </tr>
           </thead>
           <tbody>
@@ -22,12 +22,36 @@ function Cart(props) {
                   <td>{a.id}</td>
                   <td>{a.name}</td>
                   <td>{a.quan}</td>
-                  <td>Table cell</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        props.dispatch({ type: "addOrder" });
+                      }}>
+                      +
+                    </button>
+                    <button
+                      onClick={() => {
+                        props.dispatch({ type: "deleteOrder" });
+                      }}>
+                      -
+                    </button>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </Table>
+        {props.alertState === true ? (
+          <div className="my-alert2">
+            <p>20% Sale</p>
+            <button
+              onClick={() => {
+                props.dispatch({ type: "close" });
+              }}>
+              Close
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -36,7 +60,8 @@ function Cart(props) {
 function stateToProps(state) {
   // redux store 데이터 가져와서 props 로 변환해주는 함수
   return {
-    state: state, // state라는 이름의 props로 바꿔주세요
+    state: state.reducer, // state라는 이름의 props로 바꿔주세요 (여기가 props)
+    alertState: state.reducer2,
   };
 }
 
