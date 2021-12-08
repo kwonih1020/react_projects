@@ -125,7 +125,7 @@ function Detail(props) {
               tabsChange(0);
               switchsChange(false);
             }}>
-            Active
+            Product Info
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -135,7 +135,7 @@ function Detail(props) {
               tabsChange(1);
               switchsChange(false);
             }}>
-            Option 2
+            Shipping Info
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -145,7 +145,7 @@ function Detail(props) {
               tabsChange(2);
               switchsChange(false);
             }}>
-            Option 3
+            Refund Info
           </Nav.Link>
         </Nav.Item>
       </Nav>
