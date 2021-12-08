@@ -25,13 +25,13 @@ function Cart(props) {
                   <td>
                     <button
                       onClick={() => {
-                        props.dispatch({ type: "addOrder" });
+                        props.dispatch({ type: "addOrder", data: a.id });
                       }}>
                       +
                     </button>
                     <button
                       onClick={() => {
-                        props.dispatch({ type: "deleteOrder" });
+                        props.dispatch({ type: "deleteOrder", data: a.id });
                       }}>
                       -
                     </button>

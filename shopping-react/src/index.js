@@ -24,13 +24,26 @@ let initialState = [
   { id: 1, name: "Adidas Cloud", quan: 1 },
 ];
 function reducer(state = initialState, action) {
-  if (action.type === "addOrder") {
+  if (action.type === "order") {
+    let found = state.findIndex((a) => {
+      return a.id === action.data.id;
+    });
+    if (found >= 0) {
+      let copyState = [...state];
+      copyState[found].quan++;
+      return copyState;
+    } else {
+      let copyState = [...state];
+      copyState.push(action.data);
+      return copyState;
+    }
+  } else if (action.type === "addOrder") {
     let copyState = [...state];
-    copyState[0].quan++;
+    copyState[action.data].quan++;
     return copyState;
   } else if (action.type === "deleteOrder") {
     let copyState = [...state];
-    copyState[0].quan--;
+    copyState[action.data].quan--;
     return copyState;
   } else {
     return state;

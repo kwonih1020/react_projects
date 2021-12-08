@@ -7,6 +7,7 @@ import "./Detail.css";
 import { stockscontext } from "./App";
 
 import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
 
 // css을 입혀놓은 components
 let Box = styled.div`
@@ -97,6 +98,11 @@ function Detail(props) {
             className="btn btn-danger"
             onClick={() => {
               props.stocksChange([9, 11, 12]);
+              props.dispatch({
+                type: "order",
+                data: { id: products.id, name: products.title, quan: 1 },
+              });
+              history.push("/cart");
             }}>
             Order
           </button>
@@ -168,4 +174,13 @@ function Stockinfo(props) {
   return <p>Stocks : {props.stocks[0]}</p>;
 }
 
-export default Detail;
+function stateToProps(state) {
+  // redux store 데이터 가져와서 props 로 변환해주는 함수
+  return {
+    state: state.reducer, // state라는 이름의 props로 바꿔주세요 (여기가 props)
+    alertState: state.reducer2,
+  };
+}
+
+// export default Detail;
+export default connect(stateToProps)(Detail);

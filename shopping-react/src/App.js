@@ -122,7 +122,11 @@ function Shoescard(props) {
   let stocks = useContext(stockscontext); // 3. 선언
   let history = useHistory();
   return (
-    <div className="col-md-4">
+    <div
+      className="col-md-4"
+      onClick={() => {
+        history.push("/detail/" + props.shoes.id);
+      }}>
       <img
         className="shoesimage"
         src={
